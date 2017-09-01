@@ -52,7 +52,7 @@ the defualt is 8
 --------------------------------------------------------------
 Working with agents
 ==Base Agent==
-So here is a base agent that willhttps://github.com/deepmind/pysc2/blob/master/pysc2/agents/random_agent.py do essencially nothing,
+So here is a base agent that will do essencially nothing,
 it's already included in pysc2 as pysc2.agents.base_agent.BaseAgent
 (pysc2 package, agents folder, file base_agent.py, class BaseAgent)
 https://github.com/deepmind/pysc2/blob/master/pysc2/agents/base_agent.py

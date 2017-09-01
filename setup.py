@@ -10,7 +10,7 @@ from __future__ import print_function
 from setuptools import setup
 
 setup(
-    name='c_agents',
+    name='cwatts',
     version='0.1',
     description='Starcraft II environment agents for civrev',
     author='civrev',
@@ -19,7 +19,8 @@ setup(
     keywords='StarCraft AI',
     url='https://github.com/civrev/StarCraft',
     packages=[
-        'c_agents',
+        'cwatts',
+	'cwatts.agents'
     ],
     install_requires=[
 
