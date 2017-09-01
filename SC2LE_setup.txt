@@ -1,0 +1,72 @@
+This file is for help on installing SC2LE on Ubuntu 16.04.1 Linux
+or StarCraft II Learning Enviorment
+this allows StarCraft II to be used for AI research
+
+SC2LE consist of 3 parts
+1: An opensource toolset called PySC2 for buidling models
+2: Machine Learning API from Blizzard for SC2
+3: A large dataset of SC2 game replays, for training models
+
+Here are the links where you can find these things
+1: https://github.com/deepmind/pysc2
+2: https://github.com/Blizzard/s2client-proto
+3: https://github.com/Blizzard/s2client-proto#replay-packs
+
+There is also a paper by DeepMind outlining the release
+https://deepmind.com/documents/110/sc2le.pdf
+
+---------------------------------------
+1: PySC2
+
+The easiest way to install this is
+$ sudo pip3 install PySC2
+
+---------------------------------------
+2: ML API for StarCraft2
+Additionally, there is a headless (without graphics) build of SC2 for Linux
+https://github.com/Blizzard/s2client-proto#downloads
+
+Download it, and unzip like this, which is where PySC2 will look for it by defualt
+$ unzip -d ~/ Downloads/SC2.3.16.1.zip
+
+You will also want maps and mini-games
+Maps: https://github.com/Blizzard/s2client-proto#downloads
+Get all 4 maps listed here and you'll want to unzip them like this
+$ unzip -d ~/StarCraftII/Maps Downloads/Ladder2017Season1.zip
+$ unzip -d ~/StarCraftII/Maps Downloads/Ladder2017Season2.zip
+$ unzip -d ~/StarCraftII/Maps Downloads/Ladder2017Season3.zip
+$ unzip -d ~/StarCraftII/Maps Downloads/Melee.zip
+
+Minigames go in the same way
+Minigames: https://github.com/deepmind/pysc2#get-the-maps
+$ unzip -d ~/StarCraftII/Maps Downloads/mini_games.zip
+
+---------------------------------------
+3: Replay Packs
+And of course you will want training data (game replays)
+https://github.com/Blizzard/s2client-proto#replay-packs
+$ unzip -d ~/StarCraftII Downloads/3.16.1-Pack_1-fix.zip
+
+---------------------------------------
+Validate your enviorment
+This runs an agent to test your enviorment
+$ python3 -m pysc2.bin.agent --map Simple64
+
+More agents
+$ python3 -m pysc2.bin.agent --map CollectMineralShards --agent pysc2.agents.scripted_agent.CollectMineralShards
+
+Play as a human
+$ python3 -m pysc2.bin.play --map Simple64
+
+Watch a game replay (from dataset)
+$ python3 -m pysc2.bin.play --replay <path-to-replay>
+
+Maps need to be configured before they are known to the enviorment
+See maps known with
+$ python3 -m pysc2.bin.map_list
+
+
+Alright, if those ran for you with the GUI and everything then you
+are totally set up.
+
+

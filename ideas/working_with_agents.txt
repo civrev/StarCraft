@@ -1,0 +1,122 @@
+Replays are stored like this:
+/home/christian/StarCraftII/Replays/CollectMineralShards/CollectMineralShards_2017-08-31-21-28-07.SC2Replay
+
+To actually run a replay use
+
+to just get the results/stats/actions of a replay do this
+where the replay flag is just a directory path to the replay(s) you want to run
+$ python3 -m pysc2.bin.replay_actions --replays="/home/christian/StarCraftII/Replays/fa53bca42064bc9185e1c6d280f6cb25c84c1b6e207a4cc2f70f2d50042caf89.SC2Replay"
+
+
+
+-------------------------------------------------
+Playing a game with your agent
+DOCUMENTATION (sort of):
+https://github.com/deepmind/pysc2/blob/master/pysc2/bin/agent.py
+
+
+Run
+$ python3 -m pysc2.bin.agent FLAGS
+
+but you need to know something about the flags for this
+these would go after the pysc2.bin.agent command
+--map MAP
+you tell it the name of the map you want to play on, not file ext
+map is the only 'required' flag
+
+--agent AGENT
+tell it the agent you want to use (as the player)
+if no agent is given, it runs
+pysc2.agents.random_agent.RandomAgent
+
+--agent_race RACE
+tell it the race you want your agent to be
+
+--bot_race RACE
+race of the bot you face off against
+
+--difficulty DIFFICULTY
+bot's strength
+
+--max_agent_steps INTEGER
+number of actions issued by the agent before the game shuts off
+essencially, how long your game will last
+
+--step_mul INTEGER
+let's you skip observation and actions. Setting to 16 for example, means the environment
+(ie the game) performs 16 steps (each with its own observation calculations just discarded)
+per single step of the agent. Meaning on the 16th step of game your agents will take the
+observations and execute its own step which is it's action
+the defualt is 8
+
+--------------------------------------------------------------
+Working with agents
+==Base Agent==
+So here is a base agent that willhttps://github.com/deepmind/pysc2/blob/master/pysc2/agents/random_agent.py do essencially nothing,
+it's already included in pysc2 as pysc2.agents.base_agent.BaseAgent
+(pysc2 package, agents folder, file base_agent.py, class BaseAgent)
+https://github.com/deepmind/pysc2/blob/master/pysc2/agents/base_agent.py
+
+Oddly enough, even though the base agent does nothing (builds no units, doesn't defend itself)
+it seems like it still auto-collects resources. Seems they find that something as a defualt.
+But if you run the base agent on the CollectMineralShards minigame it does nothing like predicted
+
+==Random Agent==
+DOCUMENTATION: https://github.com/deepmind/pysc2/blob/master/pysc2/agents/random_agent.py
+In a random agent it seems like every step (action issued by agent) it goes to the 
+list of available actions, and selects one at random to execute. This can be seen by collections of units seemingly wandering around aimlessly with periods of stopping in between.
+it is included in pysc2 as pysc2.agents.random_agent.RandomAgent
+It oddly does moderately well on the CollectMineralShards minigame
+
+==Scripted Agent==
+Agents designed to solve minigames
+DOCUMENTATION: https://github.com/deepmind/pysc2/blob/master/pysc2/agents/scripted_agent.py
+
+They mostly serve as examples of how to code a script for an agent
+There are 3 scripted agents
+pysc2.agents.scripted_agent.MoveToBeacon
+pysc2.agents.scripted_agent.CollectMineralShards
+pysc2.agents.scripted_agent.DefeatRoaches
+
+all scripted agents are writen as a class the recieves a base agent.
+the scripted agents appear to just be using inheritence to access
+the functions in base agent
+
+==How Agents Work==
+it looks like agents work using a function called step which take two inputs
+def step(self, obs):
+
+-self is a reserve word within a python class
+-obs appears to be some large dataset containing all the sensory observations from the game
+which include all possible actions that can be taken
+
+the step function always appears to return an action to be executed
+actions are just premade functions to be run
+to get the entire list of possible actions run this
+$ python3 -m pysc2.bin.valid_actions
+
+a typical action function looks like this
+12/Attack_screen               (3/queued [2]; 0/screen [84, 84])
+12: function id
+Attack_screen: function name
+
+This arguments for the function are this
+(3/queued [2]; 0/screen [84, 84])
+3: type id
+queued: type name
+[2]: value size
+THEN IT REPEATS
+0: type id
+screen: type name
+[84,84]: value size
+
+Let's break this down further
+1/move_camera (1/minimap [64, 64])
+this function called move_camera
+it takes 1 argument called minimap
+and minimap taske 2 ints both of them in the 
+range [0,64) which represents coordinated on the minimap
+
+==Making And Executing Your Own Agents==
+DOCUMENTATION: https://github.com/deepmind/pysc2/blob/master/docs/environment.md
+
