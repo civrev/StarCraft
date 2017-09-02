@@ -1,0 +1,46 @@
+before any attempt to build a model I need to know what data I'm working with
+replays are the training data so by defualt I think I should start there for
+deciphering this mess
+
+Source Code:
+https://github.com/deepmind/pysc2/blob/master/pysc2/bin/replay_actions.py
+
+when you want to view a replay with all the acitons and what not that are in it
+you use something like this
+python3 -m pysc2.bin.replay_actions --replays="/home/christian/StarCraftII/Replays/fa53bca42064bc9185e1c6d280f6cb25c84c1b6e207a4cc2f70f2d50042caf89.SC2Replay"
+
+so pysc2.bin.replay_actions looks like something that is already built to parse though
+replay information.
+
+so taking a look at the console it appears that what is written there comes from
+the function stats_printer which grabs its information from a stats_queue
+
+stats_queue is a global made at runtime in main function
+stats_queue = multiprocessing.Queue()
+stats_thread = threading.Thread(target=stats_printer, args=(stats_queue,))
+stats_thread.start()
+
+so the stats_printer is running on the stats_thread which just takes
+stats_queue and processes it along the rest of the program
+
+the ReplayProcessor function is what looks like first opens up the replay
+once it get to line 184:
+self._print("SC2 Started successfully.")
+it looks like that is when it begins, here is where it prints that
+general information to console
+
+              if valid_replay(info, ping):
+                self.stats.replay_stats.maps[info.map_name] += 1
+                for player_info in info.player_info:
+                  self.stats.replay_stats.races[
+                      sc_pb.Race.Name(player_info.player_info.race_actual)] += 1
+                map_data = None
+                if info.local_map_path:
+                  self._update_stage("open map file")
+		  map_data = self.run_config.map_data(info.local_map_path)
+
+I am not really sure how that ends up being printed to console but whatever
+the real details of the game are just after this on line 216
+self.process_replay(controller, replay_data, map_data, player_id)
+
+
