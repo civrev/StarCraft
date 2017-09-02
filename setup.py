@@ -21,6 +21,7 @@ setup(
     packages=[
         'cwatts',
 	'cwatts.agents'
+	'cwatts.replay_ripper'
     ],
     install_requires=[
 
