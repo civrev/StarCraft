@@ -1,0 +1,31 @@
+This is a SC2LE install from nothing
+
+Get StarCraft2, if you already have it skip this----------
+Go here to get the starter edition for free
+which will work fine
+https://us.battle.net/account/sc2/starter-edition/
+you need to make a Blizzard account first though
+Install StarCraft 2, the defualts will be fine
+---------------------------------------------------------
+
+Install python
+https://www.python.org/downloads/release/python-362/
+use Windows x86-64 web-based installer
+
+run the downloaded file
+click 'add python3.6 to PATH'
+choose defualt installation
+
+run command prompt as admin and run:
+pip install pysc2
+
+now download the maps and replays
+https://github.com/Blizzard/s2client-proto
+unzip them in the folders listed on the page
+if the folders don't exist in the directories
+then just create them
+
+open up command line, run
+python -m pysc2.bin.agent --map Simple64
+to validate your install
+it should bring up the full game plus the 'headless' build
