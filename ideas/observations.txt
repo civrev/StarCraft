@@ -1,0 +1,23 @@
+the obs sent to an agent is of a TimeStep class found in environment.py
+a TimeStep class is made up of this
+step_type: A `StepType` enum value.
+reward: A scalar, or `None` if `step_type` is `StepType.FIRST`, i.e. at the start of a sequence.
+discount: A discount value in the range `[0, 1]`, or `None` if `step_type` is `StepType.FIRST`, i.e. at the start of a sequence.
+observation: A NumPy array, or a dict, list or tuple of arrays.
+
+
+TimeStep().observation is a dictionary usually with these keys
+dict_keys([
+'single_select', 
+'minimap', 
+'multi_select', 
+'control_groups', 
+'build_queue', 
+'score_cumulative', 
+'cargo_slots_available', 
+'screen', 
+'game_loop', 
+'cargo', 
+'available_actions', 
+'player'
+])
