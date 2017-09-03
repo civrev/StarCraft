@@ -86,7 +86,8 @@ the functions in base agent
 it looks like agents work using a function called step which take two inputs
 def step(self, obs):
 
--self is a reserve word within a python class
+-self is a reserve word within a python class, meaning to reference an attribute
+within an instance of the class not the class itself
 -obs appears to be some large dataset containing all the sensory observations from the game
 which include all possible actions that can be taken
 
@@ -94,6 +95,8 @@ the step function always appears to return an action to be executed
 actions are just premade functions to be run
 to get the entire list of possible actions run this
 $ python3 -m pysc2.bin.valid_actions
+or go here
+https://github.com/deepmind/pysc2/blob/master/pysc2/lib/actions.py
 
 a typical action function looks like this
 12/Attack_screen               (3/queued [2]; 0/screen [84, 84])
@@ -110,12 +113,44 @@ THEN IT REPEATS
 screen: type name
 [84,84]: value size
 
-Let's break this down further
+Let's break this down further Function.ui_func(1, "move_camera", move_camera),
 1/move_camera (1/minimap [64, 64])
 this function called move_camera
 it takes 1 argument called minimap
 and minimap taske 2 ints both of them in the 
 range [0,64) which represents coordinated on the minimap
+
+immediately after the step function is called
+(except in the case of the base agent)
+super(SomeAgent, self).step(obs) is called
+which basically means this
+class C(B):
+    def method(self, arg):
+        super().method(arg)    # This does the same thing as:
+                               # super(C, self).method(arg)
+it is calling the step function from the parent class
+(base agent) and running its step function with the arguments obs
+which doesn't do much, it would run this code
+self.steps += 1
+self.reward += obs.reward
+return actions.FunctionCall(0, [])
+but I guess that self.steps += 1
+and self.reward += obs.reward are very important
+
+the obs is another story
+is seems to be made by the environment, though the code is not exactly present
+https://github.com/deepmind/pysc2/blob/master/pysc2/env/environment.py
+in the step function at around line 102 it says it returns a tuple
+A `TimeStep` namedtuple containing:
+        step_type: A `StepType` value.
+        reward: Reward at this timestep.
+        discount: A discount in the range [0, 1].
+        observation: A NumPy array, or a dict, list or tuple of arrays
+          corresponding to `observation_spec()`.
+and observation_spec() is just a dictionary of shaped tuples
+probably just a set up to make sure all the parameters are right
+
+
 
 ==Making And Executing Your Own Agents==
 DOCUMENTATION: https://github.com/deepmind/pysc2/blob/master/docs/environment.md

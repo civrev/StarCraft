@@ -27,6 +27,9 @@ class BaseAgent(object):
 		self.episodes += 1
 
 	def step(self, obs):
+		#it seems these two lines are very important
+		#they are called for every agent child from this class
 		self.steps += 1
 		self.reward += obs.reward
+		#here you can see that the agent is purposely returning no action
 		return actions.FunctionCall(0, [])

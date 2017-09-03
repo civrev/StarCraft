@@ -44,3 +44,10 @@ the real details of the game are just after this on line 216
 self.process_replay(controller, replay_data, map_data, player_id)
 
 
+replays within the environment
+https://github.com/deepmind/pysc2/blob/master/pysc2/env/sc2_env.py
+inside the environment replays are saved using this at around line 281
+def save_replay(self, replay_dir):
+	replay_path = self._run_config.save_replay(self._controller.save_replay(), replay_dir, 		   self._map.name)
+	print("Wrote replay to:", replay_path)
+
