@@ -20,7 +20,7 @@ setup(
     url='https://github.com/civrev/StarCraft',
     packages=[
         'cwatts',
-	'cwatts.agents'
+	'cwatts.agents',
 	'cwatts.replay_ripper'
     ],
     install_requires=[
