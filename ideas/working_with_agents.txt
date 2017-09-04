@@ -150,6 +150,12 @@ A `TimeStep` namedtuple containing:
 and observation_spec() is just a dictionary of shaped tuples
 probably just a set up to make sure all the parameters are right
 
+also, the obs argument is a TimeStep object which is found in environment.py also
+a TimeStep class is made up of this
+step_type: A `StepType` enum value.
+reward: A scalar, or `None` if `step_type` is `StepType.FIRST`, i.e. at the start of a sequence.
+discount: A discount value in the range `[0, 1]`, or `None` if `step_type` is `StepType.FIRST`, i.e. at the start of a sequence.
+observation: A NumPy array, or a dict, list or tuple of arrays.
 
 
 ==Making And Executing Your Own Agents==

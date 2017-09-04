@@ -5,7 +5,6 @@ reward: A scalar, or `None` if `step_type` is `StepType.FIRST`, i.e. at the star
 discount: A discount value in the range `[0, 1]`, or `None` if `step_type` is `StepType.FIRST`, i.e. at the start of a sequence.
 observation: A NumPy array, or a dict, list or tuple of arrays.
 
-
 TimeStep().observation is a dictionary usually with these keys
 dict_keys([
 'single_select', 
@@ -21,3 +20,140 @@ dict_keys([
 'available_actions', 
 'player'
 ])
+
+a typical TimeStep object looks like this:
+obs.step_type========
+StepType.MID
+obs.reward========
+0
+obs.discount========
+1.0
+obs.observation.keys]========
+dict_keys(['game_loop', 'player', 'available_actions', 'cargo_slots_available', 'minimap', 'control_groups', 'score_cumulative', 'screen', 'single_select', 'multi_select', 'cargo', 'build_queue'])
+obs.observation[single_select]========
+[[0 0 0 0 0 0 0]]
+obs.observation[minimap]========
+[[[0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  ..., 
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]]
+
+ [[0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  ..., 
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]]
+
+ [[0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  ..., 
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]]
+
+ ..., 
+ [[0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  ..., 
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]]
+
+ [[0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  ..., 
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]]
+
+ [[0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  ..., 
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]
+  [0 0 0 ..., 0 0 0]]]
+obs.observation[multi_select]========
+[]
+obs.observation[control_groups]========
+[[0 0]
+ [0 0]
+ [0 0]
+ [0 0]
+ [0 0]
+ [0 0]
+ [0 0]
+ [0 0]
+ [0 0]
+ [0 0]]
+obs.observation[build_queue]========
+[]
+obs.observation[score_cumulative]========
+[2885  441  587 1050  500    0    0 3385    0    0    0  650    0]
+obs.observation[cargo_slots_available]========
+[0]
+obs.observation[screen]========
+[[[  0   0   0 ...,  30  30  30]
+  [  0   0   0 ...,  91  91  91]
+  [  0   0   0 ..., 152 152 152]
+  ..., 
+  [212 212 212 ..., 212 212 212]
+  [212 212 212 ..., 212 212 212]
+  [212 212 212 ..., 212 212 212]]
+
+ [[  1   1   1 ...,   0   0   0]
+  [  1   1   1 ...,   0   0   0]
+  [  1   1   1 ...,   0   0   0]
+  ..., 
+  [  1   1   1 ...,   1   1   1]
+  [  1   1   1 ...,   1   1   1]
+  [  1   1   1 ...,   1   1   1]]
+
+ [[  0   0   0 ...,   0   0   0]
+  [  0   0   0 ...,   0   0   0]
+  [  0   0   0 ...,   0   0   0]
+  ..., 
+  [  0   0   0 ...,   0   0   0]
+  [  0   0   0 ...,   0   0   0]
+  [  0   0   0 ...,   0   0   0]]
+
+ ..., 
+ [[  0   0   0 ...,   0   0   0]
+  [  0   0   0 ...,   0   0   0]
+  [  0   0   0 ...,   0   0   0]
+  ..., 
+  [  0   0   0 ...,   0   0   0]
+  [  0   0   0 ...,   0   0   0]
+  [  0   0   0 ...,   0   0   0]]
+
+ [[  0   0   0 ...,   0   0   0]
+  [  0   0   0 ...,   0   0   0]
+  [  0   0   0 ...,   0   0   0]
+  ..., 
+  [  0   0   0 ...,   0   0   0]
+  [  0   0   0 ...,   0   0   0]
+  [  0   0   0 ...,   0   0   0]]
+
+ [[  0   0   0 ...,   0   0   0]
+  [  0   0   0 ...,   0   0   0]
+  [  0   0   0 ...,   0   0   0]
+  ..., 
+  [  0   0   0 ...,   0   0   0]
+  [  0   0   0 ...,   0   0   0]
+  [  0   0   0 ...,   0   0   0]]]
+obs.observation[game_loop]========
+[11072]
+obs.observation[cargo]========
+[]
+obs.observation[available_actions]========
+[0 1 2 3 4]
+obs.observation[player]========
+[   1 2785    0    0    8    0    0    0    0    0    0]
