@@ -36,7 +36,7 @@ general information to console
                 self.stats.replay_stats.maps[info.map_name] += 1
                 for player_info in info.player_info:
                   self.stats.replay_stats.races[
-                      sc_pb.Race.Namhttps://github.com/chris-chris/pysc2-examples/blob/master/deepq_mineral_shards.pye(player_info.player_info.race_actual)] += 1
+                      sc_pb.Race.Name(player_info.player_info.race_actual)] += 1
                 map_data = None
                 if info.local_map_path:
                   self._update_stage("open map file")
@@ -53,4 +53,18 @@ inside the environment replays are saved using this at around line 281
 def save_replay(self, replay_dir):
 	replay_path = self._run_config.save_replay(self._controller.save_replay(), replay_dir, 		   self._map.name)
 	print("Wrote replay to:", replay_path)
+
+to read the replays you basically need to 'run' them through the game as if it was a real game
+this is interesting, as it means there shouldn't be many problems switching from
+training on replays and using the model to play the game
+in sc2_env.py it first starts to actually analyze the contents of a replay once it does stuff like
+with self.run_config.start() as controller:
+	info = controller.replay_info(replay_data)
+	for player_id in [1, 2]:
+        	self._print("Starting %s from player %s's perspective" % (replay_name, player_id))
+                self.process_replay(controller, replay_data, map_data,player_id)
+
+which starts at around line 200-215 or so
+"info" or controller.replay_info(replay_data)
+is your basic summary of what happened with all the different players
 
