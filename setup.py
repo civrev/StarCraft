@@ -1,5 +1,6 @@
 '''
-to install my StarCraft2 AI stuff so I can run it
+to install my StarCraft2 AI stuff
+so I can run things as a module
 '''
 
 
@@ -10,18 +11,18 @@ from __future__ import print_function
 from setuptools import setup
 
 setup(
-    name='cwatts',
-    version='0.1',
-    description='Starcraft II environment agents for civrev',
+    name='ungsc2',
+    version='0.2',
+    description='Starcraft II environment agents for UNG',
     author='civrev',
-    author_email='none@dot.com',
+    author_email='civrev@gmail.com',
     license='Yo none',
     keywords='StarCraft AI',
     url='https://github.com/civrev/StarCraft',
     packages=[
-        'cwatts',
-	'cwatts.agents',
-	'cwatts.replay_ripper'
+        'src',
+	'src.agents',
+	'src.replay_ripper'
     ],
     install_requires=[
 
