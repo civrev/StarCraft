@@ -20,9 +20,9 @@ setup(
     keywords='StarCraft AI',
     url='https://github.com/civrev/StarCraft',
     packages=[
-        'src',
-	'src.agents',
-	'src.replay_ripper'
+        'ungsc2',
+	'ungsc2.agents',
+	'ungsc2.replay_ripper'
     ],
     install_requires=[
 
