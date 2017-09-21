@@ -16,7 +16,7 @@ setup(
     description='Starcraft II environment agents for UNG',
     author='civrev',
     author_email='civrev@gmail.com',
-    license='Yo none',
+    license='GNU General Public License v3.0',
     keywords='StarCraft AI',
     url='https://github.com/civrev/StarCraft',
     packages=[
