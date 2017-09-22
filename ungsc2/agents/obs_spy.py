@@ -6,7 +6,7 @@ from __future__ import print_function
 
 import numpy
 
-from cwatts.agents import base
+from ungsc2.agents import base
 from pysc2.lib import actions
 
 class ObsSpyAgent(base.BaseAgent):
