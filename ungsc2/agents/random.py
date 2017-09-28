@@ -45,5 +45,5 @@ class RandomAgent(base.BaseAgent):
 		#the minimap arg is [x,y] position on the minimap to move
 		#the camera to
 		#meaning it takes 2 arguments the x and y
-		#print(function_id, args)
+		print(obs.observation["score_cumulative"][0])
 		return actions.FunctionCall(function_id, args)
