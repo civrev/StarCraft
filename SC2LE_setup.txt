@@ -1,5 +1,5 @@
 This file is for help on installing SC2LE on Ubuntu 16.04.1 Linux
-or StarCraft II Learning Enviorment
+or StarCraft II Learning Enviorment edit
 this allows StarCraft II to be used for AI research
 
 SC2LE consist of 3 parts
