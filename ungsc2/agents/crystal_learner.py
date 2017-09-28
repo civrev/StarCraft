@@ -1,7 +1,7 @@
 """
 A learning agent for starcraft, with comments!
-
-
+Using the optimistic initial values strategy,
+get the agent to choose profitable actions
 python3 -m pysc2.bin.agent --map CollectMineralShards --agent ungsc2.agents.crystal_learner.CrystalLearnerAgent
 """
 
