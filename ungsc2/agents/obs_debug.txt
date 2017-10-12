@@ -4,8 +4,10 @@ obs.reward========
 0
 obs.discount========
 1.0
-obs.observation.keys]========
-dict_keys(['game_loop', 'player', 'available_actions', 'cargo_slots_available', 'minimap', 'control_groups', 'score_cumulative', 'screen', 'single_select', 'multi_select', 'cargo', 'build_queue'])
+obs.observation.keys========
+dict_keys(['cargo', 'control_groups', 'multi_select', 'game_loop', 'score_cumulative', 'minimap', 'build_queue', 'available_actions', 'single_select', 'screen', 'player', 'cargo_slots_available'])
+obs.observation[minimap][4] or player_id========
+64
 obs.observation[single_select]========
 [[0 0 0 0 0 0 0]]
 obs.observation[minimap]========
@@ -58,78 +60,23 @@ obs.observation[minimap]========
   [0 0 0 ..., 0 0 0]
   [0 0 0 ..., 0 0 0]]]
 obs.observation[multi_select]========
-[]
+[[48  1 45  0  0  0  0]
+ [48  1 45  0  0  0  0]]
 obs.observation[control_groups]========
-[[0 0]
- [0 0]
- [0 0]
- [0 0]
- [0 0]
- [0 0]
- [0 0]
- [0 0]
- [0 0]
- [0 0]]
+[[ 0  0]
+ [48  1]
+ [ 0  0]
+ [ 0  0]
+ [ 0  0]
+ [ 0  0]
+ [ 0  0]
+ [ 0  0]
+ [48  1]
+ [ 0  0]]
 obs.observation[build_queue]========
 []
 obs.observation[score_cumulative]========
-[2885  441  587 1050  500    0    0 3385    0    0    0  650    0]
+[ 19   0   0 100   0   0   0   0   0   0   0   0   0]
 obs.observation[cargo_slots_available]========
 [0]
 obs.observation[screen]========
-[[[  0   0   0 ...,  30  30  30]
-  [  0   0   0 ...,  91  91  91]
-  [  0   0   0 ..., 152 152 152]
-  ..., 
-  [212 212 212 ..., 212 212 212]
-  [212 212 212 ..., 212 212 212]
-  [212 212 212 ..., 212 212 212]]
-
- [[  1   1   1 ...,   0   0   0]
-  [  1   1   1 ...,   0   0   0]
-  [  1   1   1 ...,   0   0   0]
-  ..., 
-  [  1   1   1 ...,   1   1   1]
-  [  1   1   1 ...,   1   1   1]
-  [  1   1   1 ...,   1   1   1]]
-
- [[  0   0   0 ...,   0   0   0]
-  [  0   0   0 ...,   0   0   0]
-  [  0   0   0 ...,   0   0   0]
-  ..., 
-  [  0   0   0 ...,   0   0   0]
-  [  0   0   0 ...,   0   0   0]
-  [  0   0   0 ...,   0   0   0]]
-
- ..., 
- [[  0   0   0 ...,   0   0   0]
-  [  0   0   0 ...,   0   0   0]
-  [  0   0   0 ...,   0   0   0]
-  ..., 
-  [  0   0   0 ...,   0   0   0]
-  [  0   0   0 ...,   0   0   0]
-  [  0   0   0 ...,   0   0   0]]
-
- [[  0   0   0 ...,   0   0   0]
-  [  0   0   0 ...,   0   0   0]
-  [  0   0   0 ...,   0   0   0]
-  ..., 
-  [  0   0   0 ...,   0   0   0]
-  [  0   0   0 ...,   0   0   0]
-  [  0   0   0 ...,   0   0   0]]
-
- [[  0   0   0 ...,   0   0   0]
-  [  0   0   0 ...,   0   0   0]
-  [  0   0   0 ...,   0   0   0]
-  ..., 
-  [  0   0   0 ...,   0   0   0]
-  [  0   0   0 ...,   0   0   0]
-  [  0   0   0 ...,   0   0   0]]]
-obs.observation[game_loop]========
-[11072]
-obs.observation[cargo]========
-[]
-obs.observation[available_actions]========
-[0 1 2 3 4]
-obs.observation[player]========
-[   1 2785    0    0    8    0    0    0    0    0    0]

@@ -1,4 +1,8 @@
-"""random agent that prints to a file"""
+"""random agent that prints to a file
+
+python3 -m pysc2.bin.agent --map CollectMineralShards --agent ungsc2.agents.obs_spy.ObsSpyAgent
+
+"""
 
 from __future__ import absolute_import
 from __future__ import division
@@ -13,7 +17,7 @@ class ObsSpyAgent(base.BaseAgent):
 	"""A random agent that prints the obs to a file"""
 	def step(self, obs):
 		#open the file, with w or write priviledges
-		debug_file = open("/home/christian/StarCraft/cwatts/agents/obs_debug.txt", 'w')
+		debug_file = open("/home/christian/StarCraft/ungsc2/agents/obs_debug.txt", 'w')
 		#obs is a TimeStep class
 		#obs.step_type
 		debug_file.write('obs.step_type========\n')
@@ -25,8 +29,10 @@ class ObsSpyAgent(base.BaseAgent):
 		debug_file.write('\nobs.discount========\n')
 		debug_file.write(str(obs.discount))
 		#obs.observation is a dictionary
-		debug_file.write('\nobs.observation.keys]========\n')
+		debug_file.write('\nobs.observation.keys========\n')
 		debug_file.write(str(obs.observation.keys()))
+		debug_file.write('\nobs.observation[minimap][4] or player_id========\n')
+		debug_file.write(str(len(obs.observation['minimap'][4])))
 		debug_file.write('\nobs.observation[single_select]========\n')
 		debug_file.write(str(obs.observation['single_select']))
 		debug_file.write('\nobs.observation[minimap]========\n')
