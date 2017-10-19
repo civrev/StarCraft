@@ -33,17 +33,22 @@ class CrystalLearnerAgent(object):
 		self.episodes += 1
 
 	def build_model(self, function_id):
-		state_size = 64
-		temp = [len(arg.sizes) for arg in self.action_spec.functions[function_id].args]
-		arg_size = sum(temp)
-		print("ID",function_id,"TEMP",temp,"ARG",arg_size)
-		if arg_size<1:
-			return "zero"
-		model = Sequential()
-		model.add(Dense(24, input_dim=state_size, activation='relu'))
-		model.add(Dense(24, activation='relu'))
-		model.add(Dense(arg_size, activation='linear'))
-		model.compile(loss='mse', optimizer='adam')
+		model_name = str(function_id)+'.h5'
+		try:
+			model = load_model(model_name)
+		except:
+			state_size = 64
+			temp = [len(arg.sizes) for arg in self.action_spec.functions
+				[function_id].args]
+			arg_size = sum(temp)
+			print("Building NN:","ID",function_id,"TEMP",temp,"ARG",arg_size)
+			if arg_size<1:
+				return "zero"
+			model = Sequential()
+			model.add(Dense(24, input_dim=state_size, activation='relu'))
+			model.add(Dense(24, activation='relu'))
+			model.add(Dense(arg_size, activation='linear'))
+			model.compile(loss='mse', optimizer='adam')
 		return model
 		
 
