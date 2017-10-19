@@ -12,8 +12,6 @@ from __future__ import print_function
 import numpy as np
 
 from pysc2.lib import actions
-from keras.models import Sequential
-from keras.layers import Dense
 
 class CrystalLearnerAgent(object):
 	"""Learning agent for solving crystal shards"""
@@ -37,18 +35,7 @@ class CrystalLearnerAgent(object):
 		try:
 			model = load_model(model_name)
 		except:
-			state_size = 64
-			temp = [len(arg.sizes) for arg in self.action_spec.functions
-				[function_id].args]
-			arg_size = sum(temp)
-			print("Building NN:","ID",function_id,"TEMP",temp,"ARG",arg_size)
-			if arg_size<1:
-				return "zero"
-			model = Sequential()
-			model.add(Dense(24, input_dim=state_size, activation='relu'))
-			model.add(Dense(24, activation='relu'))
-			model.add(Dense(arg_size, activation='linear'))
-			model.compile(loss='mse', optimizer='adam')
+			return "zero"
 		return model
 		
 
@@ -80,7 +67,7 @@ class CrystalLearnerAgent(object):
 			function_id = self.actions[j].a_id
 			if self.actions[j].model==2:
 				#get args from model
-				print("shoudlnt be here")
+				print("shouldn't be here")
 			else:
 				#no model present, random gen
 				args = [[np.random.randint(0, size) for size in arg.sizes]

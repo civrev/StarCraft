@@ -52,7 +52,7 @@ class CollectMineralShards(base.BaseAgent):
 	def step(self, obs):
 		super(CollectMineralShards, self).step(obs)
 		player_relative = obs.observation["screen"][_PLAYER_RELATIVE]
-		obs_string = ' '.join(player_relative.astype(str).flatten().tolist())
+		obs_string = '@'.join(player_relative.astype(str).flatten().tolist())
 		if _MOVE_SCREEN in obs.observation["available_actions"]:
 			neutral_y, neutral_x = (player_relative == _PLAYER_NEUTRAL).nonzero()
 			player_y, player_x = (player_relative == _PLAYER_FRIENDLY).nonzero()
