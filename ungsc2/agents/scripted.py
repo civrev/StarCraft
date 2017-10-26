@@ -12,11 +12,12 @@ from __future__ import division
 from __future__ import print_function
 
 import numpy
-numpy.set_printoptions(threshold=numpy.nan)
+#numpy.set_printoptions(threshold=numpy.nan)
 
 from ungsc2.agents import base
 from pysc2.lib import actions
 from pysc2.lib import features
+from scipy.ndimage.interpolation import zoom
 
 _PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
 _PLAYER_FRIENDLY = 1
@@ -52,6 +53,7 @@ class CollectMineralShards(base.BaseAgent):
 	def step(self, obs):
 		super(CollectMineralShards, self).step(obs)
 		player_relative = obs.observation["screen"][_PLAYER_RELATIVE]
+		player_relative = zoom(player_relative, 0.5)
 		obs_string = '@'.join(player_relative.astype(str).flatten().tolist())
 		if _MOVE_SCREEN in obs.observation["available_actions"]:
 			neutral_y, neutral_x = (player_relative == _PLAYER_NEUTRAL).nonzero()
