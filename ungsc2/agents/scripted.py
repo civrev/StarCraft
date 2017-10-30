@@ -54,13 +54,15 @@ class CollectMineralShards(base.BaseAgent):
 		super(CollectMineralShards, self).step(obs)
 		player_relative = obs.observation["screen"][_PLAYER_RELATIVE]
 		p_relative_output = zoom(player_relative, 0.5)
-		obs_string = '@'.join(p_relative_output.astype(str).flatten().tolist())
+		obs_string = ','.join(p_relative_output.astype(str).flatten().tolist())
 		if _MOVE_SCREEN in obs.observation["available_actions"]:
 			neutral_y, neutral_x = (player_relative == _PLAYER_NEUTRAL).nonzero()
 			player_y, player_x = (player_relative == _PLAYER_FRIENDLY).nonzero()
 			if not neutral_y.any() or not player_y.any():
-				out_file = open(str(_NO_OP)+"_NO_OP_df.txt", 'a')
-				out_file.write(obs_string + "|"+str([]) + "\n")
+				features_file = open(str(_NO_OP)+"_NO_OP_features.txt", 'a')
+				features_file.write(obs_string+"\n")
+				target_file = open(str(_NO_OP)+"_NO_OP_targets.txt", 'a')
+				target_file.write("NoAction\n")
 				return actions.FunctionCall(_NO_OP, [])
 			player = [int(player_x.mean()), int(player_y.mean())]
 			closest, min_dist = None, None
@@ -68,12 +70,16 @@ class CollectMineralShards(base.BaseAgent):
 				dist = numpy.linalg.norm(numpy.array(player) - numpy.array(p))
 				if not min_dist or dist < min_dist:
 					closest, min_dist = p, dist
-			out_file = open(str(_MOVE_SCREEN)+"_MOVE_SCREEN_df.txt", 'a')
-			out_file.write(obs_string +"|"+str([_NOT_QUEUED, closest]) + "\n")
+			features_file = open(str(_MOVE_SCREEN)+"_MOVE_SCREEN_features.txt", 'a')
+			features_file.write(obs_string+"\n")
+			target_file = open(str(_MOVE_SCREEN)+"_MOVE_SCREEN_targets.txt", 'a')
+			target_file.write(str([_NOT_QUEUED, closest]) + "\n")
 			return actions.FunctionCall(_MOVE_SCREEN, [_NOT_QUEUED, closest])
 		else:
-			out_file = open(str(_SELECT_ARMY)+"_SELECT_ARMY_df.txt", 'a')
-			out_file.write(obs_string+ "|" + str([_SELECT_ALL]) + "\n")
+			features_file = open(str(_SELECT_ARMY)+"_SELECT_ARMY_features.txt", 'a')
+			features_file.write(obs_string+"\n")
+			target_file = open(str(_SELECT_ARMY)+"_SELECT_ARMY_targets.txt", 'a')
+			target_file.write(str([_SELECT_ALL]) + "\n")
 			return actions.FunctionCall(_SELECT_ARMY, [_SELECT_ALL])
 
 

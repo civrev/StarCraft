@@ -2,7 +2,7 @@
 A learning agent for starcraft, with comments!
 Using the optimistic initial values strategy,
 get the agent to choose profitable actions
-python3 -m pysc2.bin.agent --map CollectMineralShards --agent ungsc2.agents.crystal_learner_nn.CrystalLearnerAgent
+python3 -m pysc2.bin.agent --map CollectMineralShards --agent ungsc2.agents.crystal_learner_nn.CrystalLearnerAgent --step_mul 16
 """
 
 from __future__ import absolute_import
@@ -10,8 +10,13 @@ from __future__ import division
 from __future__ import print_function
 
 import numpy as np
+from scipy.ndimage.interpolation import zoom
 
 from pysc2.lib import actions
+from pysc2.lib import features
+from keras.models import load_model
+
+_PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
 
 class CrystalLearnerAgent(object):
 	"""Learning agent for solving crystal shards"""
@@ -35,7 +40,7 @@ class CrystalLearnerAgent(object):
 		try:
 			model = load_model(model_name)
 		except:
-			return "zero"
+			return 2
 		return model
 		
 
@@ -53,8 +58,8 @@ class CrystalLearnerAgent(object):
 
 		if self.old_act!=-1:
 			self.actions[self.old_act].update(reward)
-			if reward>0 and type(self.actions[self.old_act].model)==int:
-				#if score was good, and no model exist, build model
+			if reward>0 and self.actions[self.old_act].model==0:
+				#if score was good, and model hasn't attempted loading
 				self.actions[self.old_act].model = self.build_model(self.actions[self.old_act].a_id)	
 
 		j = np.argmax([act.mean for act in self.actions])
@@ -65,9 +70,16 @@ class CrystalLearnerAgent(object):
 				for arg in self.action_spec.functions[function_id].args]
 		else:
 			function_id = self.actions[j].a_id
-			if self.actions[j].model==2:
-				#get args from model
-				print("shouldn't be here")
+			if type(self.actions[j].model)!=int:
+				player_relative = obs.observation["screen"][_PLAYER_RELATIVE]
+				p_relative_output = zoom(player_relative, 0.5).flatten()
+				single = np.array([p_relative_output])
+				pred=self.actions[j].model.predict([single])
+				pred = pred*2
+				pred = np.rint(pred)
+				pred = pred.astype(int).tolist()
+				args = [[0],pred[0]]
+				print("Used prediction",pred)
 			else:
 				#no model present, random gen
 				args = [[np.random.randint(0, size) for size in arg.sizes]
