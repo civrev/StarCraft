@@ -61,7 +61,6 @@ X_train, X_test, y_train, y_test = train_test_split(f2.as_matrix(),t2.as_matrix(
 #early stopping monitor, after 50 epochs of no improvement, quit
 monitor = EarlyStopping(patience=5)
 
-'''
 n_cols = X_train.shape[1] #the size of the player_relative feature layer
 print(X_train.shape,y_train.shape)
 print("Building NN:","331_MOVE_SCREEN","STATE_SIZE",n_cols)
@@ -76,12 +75,12 @@ print(model.summary())
 #train the NN
 model.fit(X_train, y_train, epochs=500, callbacks=[monitor])
 model.save('331.h5')
-'''
-model = load_model('331.h5')
-print(type(model))
+
+#model = load_model('331.h5')
 
 #test the NN
-single = np.array([X_test[0]])
-pred=model.predict([single])
-print(pred)
-print(y_test[0])
+#single = np.array([X_test[0]])
+#pred=model.predict([single])
+pred = model.predict(X_test)
+print(np.mean((y_test-pred)/y_test))
+
