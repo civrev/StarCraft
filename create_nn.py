@@ -4,6 +4,10 @@ scripted agents
 
 python3 create_nn.py
 
+you'll need to gather sample data into .txt files if you haven't already done so
+use
+python3 -m pysc2.bin.agent --map CollectMineralShards --agent ungsc2.agents.scripted.CollectMineralShards
+
 '''
 
 import numpy as np

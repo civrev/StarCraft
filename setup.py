@@ -2,7 +2,7 @@
 to install my StarCraft2 AI stuff
 so I can run things as a module
 run
-python setup.py install
+python3 setup.py install
 '''
 
 
